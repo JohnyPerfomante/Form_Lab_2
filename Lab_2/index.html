@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Форма зворотного зв’язку з прикріпленням файлу">
+  <title>Зворотний зв’язок — практична робота №2</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">web<span>practice</span></a>
+    <span>Практична робота №2</span>
+  </header>
+  <main class="layout">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">МИ НА ЗВ’ЯЗКУ</p>
+      <h1 id="page-title">Ваша думка<br> має значення.</h1>
+      <p class="lead">Поставте запитання, поділіться ідеєю або розкажіть про проблему.</p>
+      <ol class="steps">
+        <li>Залиште контактні дані</li>
+        <li>Опишіть своє звернення</li>
+        <li>За потреби додайте файл</li>
+      </ol>
+      <p class="demo-note">Навчальна демонстрація. Повідомлення та вкладення обробляються лише у вашому браузері й
+        нікуди не надсилаються.</p>
+    </section>
+    <section class="card" aria-label="Форма зворотного зв’язку">
+      <form id="feedback-form" method="post" enctype="multipart/form-data" novalidate>
+        <h2>Напишіть нам</h2>
+        <p class="hint">Поля зі зірочкою * обов’язкові.</p>
+        <div class="form-progress">
+          <div class="progress-caption"><span>Готовність звернення</span><output id="progress-label">0 з 4
+              полів</output></div>
+          <div class="progress-track" id="completion" role="progressbar" aria-label="Готовність звернення"
+            aria-valuemin="0" aria-valuemax="4" aria-valuenow="0"><span id="progress-fill"></span></div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="name">Ваше ім’я *</label>
+            <input id="name" name="name" autocomplete="name" required minlength="2" maxlength="80"
+              placeholder="Введіть ім’я" aria-describedby="name-error">
+            <p class="error" id="name-error"></p>
+          </div>
+          <div class="field">
+            <label for="email">Електронна пошта *</label>
+            <input id="email" name="email" type="email" autocomplete="email" required maxlength="254"
+              placeholder="name@example.com" aria-describedby="email-error">
+            <p class="error" id="email-error"></p>
+          </div>
+        </div>
+        <div class="field">
+          <label for="subject">Тема звернення *</label>
+          <select id="subject" name="subject" required aria-describedby="subject-error">
+            <option value="">Оберіть тему</option>
+            <option>Запитання</option>
+            <option>Пропозиція</option>
+            <option>Повідомлення про помилку</option>
+            <option>Інше</option>
+          </select>
+          <p class="error" id="subject-error"></p>
+        </div>
+        <div class="field">
+          <label for="message">Повідомлення *</label>
+          <textarea id="message" name="message" rows="4" required minlength="10" maxlength="2000"
+            placeholder="Розкажіть детальніше…" aria-describedby="message-hint message-error"></textarea>
+          <div class="message-meta" id="message-hint"><span>Щонайменше 10 символів</span><output id="counter"
+              for="message">0 / 2000</output></div>
+          <p class="error" id="message-error"></p>
+        </div>
+        <div class="field attachment" id="drop-zone">
+          <label for="attachment">Прикріпити файл <span class="optional">необов’язково</span></label>
+          <p class="hint" id="file-hint">Один PDF, TXT, JPG або PNG. До 5 МіБ (5 242 880 байтів).</p>
+          <p class="drop-hint" aria-hidden="true"><span class="upload-icon">↑</span>Перетягніть файл сюди або виберіть
+            нижче</p>
+          <input id="attachment" name="attachment" type="file" accept=".pdf,.txt,.jpg,.jpeg,.png"
+            aria-describedby="file-hint file-info attachment-error">
+          <div class="file-meta"><span id="file-info" aria-live="polite">Файл ще не вибрано</span><button
+              id="remove-file" type="button" hidden>Видалити</button></div>
+          <figure class="file-preview" id="file-preview" hidden>
+            <img id="preview-image" alt="Попередній перегляд прикріпленого зображення">
+            <figcaption>Попередній перегляд зображення</figcaption>
+          </figure>
+          <p class="error" id="attachment-error"></p>
+        </div>
+        <button class="primary" id="submit-button" type="submit" disabled><span class="button-label">Надіслати
+            повідомлення</span>
+          <span class="button-arrow" aria-hidden="true">↗</span><span class="spinner" aria-hidden="true"
+            hidden></span></button>
+        <button class="reset" type="reset">Очистити форму</button>
+        <p class="form-status" id="form-status" role="alert"></p>
+        <noscript>
+          <p class="error">Для роботи форми увімкніть JavaScript.</p>
+        </noscript>
+      </form>
+      <section id="success" hidden aria-labelledby="success-title">
+        <span class="success-icon" aria-hidden="true">✓</span>
+        <p class="eyebrow">УСЕ ГОТОВО</p>
+        <h2 id="success-title" tabindex="-1">Звернення сформовано</h2>
+        <p>Дані перевірено. Це демонстрація: надсилання на сервер не виконувалося.</p>
+        <dl id="summary"></dl>
+        <button class="primary" id="new-message" type="button">Нове звернення <span class="button-arrow"
+            aria-hidden="true">↗</span></button>
+      </section>
+    </section>
+  </main>
+  <footer>Веборієнтована розробка програмного забезпечення <span>HTML · CSS · JavaScript</span></footer>
+</body>
+
+</html>
